@@ -95,11 +95,19 @@ function renderMaterias() {
 }
 
 function generarHorarios() {
-    combinaciones = generarCombinaciones(materias);
+    combinaciones = generarCombinacionesParcialesPorMateria(materias);
+
+    // ordena por cantidad de materias de mayor a menor
+    combinaciones.sort((a,b) => b.length - a.length)
 
     indice = 0;
 
-    document.getElementById("contador").textContent = `Combinaciones posibles: ${combinaciones.length}`;
+    // Mostramos cuántas combinaciones y la máxima cantidad de materias
+    if(combinaciones.length>0){
+        document.getElementById("contador").textContent = `Combinaciones posibles: ${combinaciones.length} (máx ${combinaciones[0].length} materias)`
+    } else {
+        document.getElementById("contador").textContent = `No hay combinaciones posibles`
+    }
 
     renderHorario();
 }

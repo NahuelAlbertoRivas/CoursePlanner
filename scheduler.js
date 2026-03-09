@@ -19,29 +19,32 @@ function compatible(lista) {
     return true;
 }
 
-function generarCombinaciones(materias) {
-    const nombres = Object.keys(materias);
+function generarCombinacionesParcialesPorMateria(materias) {
+  const nombres = Object.keys(materias)
+  const res = []
 
-    let resultados = [];
-
-    function backtrack(i, actual) {
-        if (i === nombres.length) {
-            resultados.push([...actual]);
-            return;
-        }
-
-        const materia = nombres[i];
-
-        for (const comision of materias[materia]) {
-            if (actual.every((a) => !conflicto(a, comision))) {
-                actual.push(comision);
-                backtrack(i + 1, actual);
-                actual.pop();
-            }
-        }
+  function backtrack(index, actual) {
+    if (index === nombres.length) {
+      if (actual.length > 0) res.push([...actual])
+      return
     }
 
-    backtrack(0, []);
+    const nombre = nombres[index]
 
-    return resultados;
+    // Opción 1: No tomar ninguna comisión de esta materia (combinaciones parciales)
+    backtrack(index + 1, actual)
+
+    // Opción 2: Tomar una comisión de esta materia
+    materias[nombre].forEach(c => {
+      if (compatible([...actual, c])) {
+        actual.push(c)
+        backtrack(index + 1, actual)
+        actual.pop()
+      }
+    })
+  }
+
+  backtrack(0, [])
+  return res
 }
+
