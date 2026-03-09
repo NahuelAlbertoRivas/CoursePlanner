@@ -11,6 +11,11 @@ const diasIndex = {
     Viernes: 5,
 };
 
+function timeToMinutes(t) {
+    const [h, m] = t.split(":").map(Number);
+    return h * 60 + m;
+}
+
 function agregarComision() {
     const nombre = document.getElementById("nombre").value.trim();
     const dia = document.getElementById("dia").value;
@@ -26,11 +31,12 @@ function agregarComision() {
     const finMin = timeToMinutes(fin);
 
     if (finMin <= inicioMin) {
-        alert("El horario es inválido");
+        alert("Horario inválido");
         return;
     }
 
     const comision = {
+        id: Date.now() + Math.random(),
         nombre,
         dia,
         inicio,
@@ -49,6 +55,18 @@ function agregarComision() {
     renderMaterias();
 }
 
+function eliminarComision(nombre, id) {
+    materias[nombre] = materias[nombre].filter((c) => c.id !== id);
+
+    if (materias[nombre].length === 0) {
+        delete materias[nombre];
+    }
+
+    guardarMaterias(materias);
+
+    renderMaterias();
+}
+
 function renderMaterias() {
     const ul = document.getElementById("listaMaterias");
 
@@ -59,6 +77,17 @@ function renderMaterias() {
             const li = document.createElement("li");
 
             li.textContent = `${c.nombre} ${c.dia} ${c.inicio}-${c.fin}`;
+
+            const boton = document.createElement("span");
+
+            boton.textContent = " ✖";
+            boton.className = "borrar";
+
+            boton.addEventListener("click", () => {
+                eliminarComision(nombre, c.id);
+            });
+
+            li.appendChild(boton);
 
             ul.appendChild(li);
         });
