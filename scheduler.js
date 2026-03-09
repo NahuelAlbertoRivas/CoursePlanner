@@ -1,47 +1,47 @@
-function conflicto(a,b){
-
-if(a.dia !== b.dia) return false
-
-return !(a.fin <= b.inicio || b.fin <= a.inicio)
-
+function timeToMinutes(t) {
+    const [h, m] = t.split(":").map(Number);
+    return h * 60 + m;
 }
 
-function compatible(lista){
+function conflicto(a, b) {
+    if (a.dia !== b.dia) return false;
 
-for(let i=0;i<lista.length;i++){
-for(let j=i+1;j<lista.length;j++){
-
-if(conflicto(lista[i],lista[j])) return false
-
-}
+    return !(a.finMin <= b.inicioMin || b.finMin <= a.inicioMin);
 }
 
-return true
+function compatible(lista) {
+    for (let i = 0; i < lista.length; i++) {
+        for (let j = i + 1; j < lista.length; j++) {
+            if (conflicto(lista[i], lista[j])) return false;
+        }
+    }
+
+    return true;
 }
 
-function generarSubsets(arr){
+function generarCombinaciones(materias) {
+    const nombres = Object.keys(materias);
 
-const res=[]
-const total=1<<arr.length
+    let resultados = [];
 
-for(let i=1;i<total;i++){
+    function backtrack(i, actual) {
+        if (i === nombres.length) {
+            resultados.push([...actual]);
+            return;
+        }
 
-let subset=[]
+        const materia = nombres[i];
 
-for(let j=0;j<arr.length;j++){
-if(i & (1<<j)) subset.push(arr[j])
-}
+        for (const comision of materias[materia]) {
+            if (actual.every((a) => !conflicto(a, comision))) {
+                actual.push(comision);
+                backtrack(i + 1, actual);
+                actual.pop();
+            }
+        }
+    }
 
-res.push(subset)
+    backtrack(0, []);
 
-}
-
-return res
-
-}
-
-function generarCombinaciones(materias){
-
-return generarSubsets(materias).filter(compatible)
-
+    return resultados;
 }
