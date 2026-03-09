@@ -1,0 +1,30 @@
+body{
+font-family:Arial;
+margin:30px;
+}
+
+#grid{
+display:grid;
+grid-template-columns:80px repeat(5,1fr);
+margin-top:20px;
+}
+
+.cell{
+border:1px solid #ccc;
+padding:5px;
+height:40px;
+font-size:12px;
+}
+
+.header{
+background:#f2f2f2;
+font-weight:bold;
+text-align:center;
+}
+
+.materia{
+color:white;
+font-weight:bold;
+border-radius:4px;
+padding:2px;
+}

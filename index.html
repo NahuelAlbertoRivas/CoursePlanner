@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+<meta charset="UTF-8">
+<title>Planificador de Materias</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h1>Planificador de Horarios</h1>
+
+<section class="formulario">
+
+<h2>Agregar materia</h2>
+
+<input id="nombre" placeholder="Nombre materia">
+
+<select id="dia">
+<option>Lunes</option>
+<option>Martes</option>
+<option>Miércoles</option>
+<option>Jueves</option>
+<option>Viernes</option>
+</select>
+
+Inicio
+<input type="time" id="inicio">
+
+Fin
+<input type="time" id="fin">
+
+<button onclick="agregarMateria()">Agregar</button>
+
+</section>
+
+<section>
+
+<h2>Materias cargadas</h2>
+<ul id="listaMaterias"></ul>
+
+</section>
+
+<section>
+
+<button onclick="generarHorarios()">Generar combinaciones</button>
+
+<div id="contador"></div>
+
+</section>
+
+<section>
+
+<h2>Horario</h2>
+
+<button onclick="prev()">←</button>
+<button onclick="next()">→</button>
+
+<div id="grid"></div>
+
+</section>
+
+<script src="scheduler.js"></script>
+<script src="storage.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
