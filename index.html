@@ -51,8 +51,33 @@
             <div id="grid"></div>
         </section>
 
+        <!-- Modal para editar comisión -->
+        <div id="modalEditar" class="modal" style="display: none;">
+            <div class="modal-content">
+                <h3>Editar Comisión</h3>
+                <label>Nombre: <input type="text" id="editNombre" /></label><br />
+                <label>
+                    Día:
+                    <select id="editDia">
+                        <option>Lunes</option>
+                        <option>Martes</option>
+                        <option>Miércoles</option>
+                        <option>Jueves</option>
+                        <option>Viernes</option>
+                    </select>
+                </label>
+                <br />
+                <label>Inicio: <input type="time" id="editInicio" /></label><br />
+                <label>Fin: <input type="time" id="editFin" /></label><br />
+                <br />
+                <button id="guardarEdicion">Guardar</button>
+                <button id="cerrarModal">Cancelar</button>
+            </div>
+        </div>
+
         <script src="scheduler.js"></script>
         <script src="storage.js"></script>
         <script src="app.js"></script>
+
     </body>
 </html>
